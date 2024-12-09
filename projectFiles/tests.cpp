@@ -23,74 +23,103 @@ bool testBodyContainsRed()
 }
 
 //contains
+//price inside bounds
 bool testContainsInsideBounds()
 {
     Candle candle(100.0, 110.0, 90.0, 105.0);
-    return candle.contains(90.0) && candle.contains(95.0);
+    return candle.contains(105.0) && candle.contains(95.0);
 }
+//extreme values
 bool testContainsOnBounds()
 {
-    return false;
+    Candle candle(100.0, 110.0, 90.0, 105.0);
+    return candle.contains(90.0) && candle.contains(110.0);
 }
+//price out of bounds
 bool testContainsOutsideBounds()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 105.0 };
+    return !candle.contains(120.0) && !candle.contains(85.0);
 }
 
 //full_size
+//size positive
 bool testFullSizePositive()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 105.0 };
+    return candle.full_size() == 20.0;
 }
+//zero size of candle 
 bool testFullSizeNegative()
 {
-    return false;
+    Candle candle{ 100.0, 100.0, 100.0, 100.0 };
+    return candle.full_size() == 0.0;
 }
+//size negative
 bool testFullSizeZero()
 {
-    return false;
+    Candle candle{ -10.0, -5.0, -15.0, -8.0 };
+    return candle.full_size() == 10.0;
 }
 
 //body_size
+//green size
 bool testBodySizeGreen()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 105.0 };
+    return candle.body_size() == 5.0;
 }
+//red size
 bool testBodySizeRed()
 {
-    return false;
+    Candle candle{ 105.0, 110.0, 90.0, 100.0 };
+    return candle.body_size() == 5.0;
 }
+//zero size
 bool testBodySizeZero()
 {
-    return false;
+    Candle candle{ 100.0, 100.0, 90.0, 100.0 };
+    return candle.body_size() == 0.0;
 }
 
 //is_red
+//red candle
 bool testIsRedTrue()
 {
-    return false;
+    Candle candle{ 105.0, 110.0, 90.0, 100.0 };
+    return candle.is_red();
 }
+//!red candle
 bool testIsRedFalse()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 105.0 };
+    return !candle.is_red();
 }
+//zero body candle
 bool testIsRedZeroBody()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 100.0 };
+    return !candle.is_red();
 }
 
 //is_green
+//green candle
 bool testIsGreenTrue()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 105.0 };
+    return candle.is_green();
 }
+//!green candle
 bool testIsGreenFalse()
 {
-    return false;
+    Candle candle{ 105.0, 110.0, 90.0, 100.0 };
+    return !candle.is_green();
 }
+//zero body candle
 bool testIsGreenZeroBody()
 {
-    return false;
+    Candle candle{ 100.0, 110.0, 90.0, 100.0 };
+    return !candle.is_green();
 }
 
 //
@@ -123,7 +152,7 @@ void initTests()
         {
             tests.push_back(testFunc);
         }
-        };
+    };
 
     addTests();
 }
